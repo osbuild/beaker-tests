@@ -1,0 +1,155 @@
+<job>
+  <whiteboard>ImageBuilder multi-arch testing in Beaker</whiteboard>
+  <recipeSet priority="Normal">
+    <recipe whiteboard="RHEL 8 CDN x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+      <autopick random="false"/>
+      <watchdog/>
+      <packages/>
+      <ks_appends/>
+      <repos/>
+      <distroRequires>
+        <distro_arch op="=" value="x86_64"/>
+        <name op="=" value="RHEL-8.2.0"/>
+        <variant op="=" value="BaseOS"/>
+      </distroRequires>
+      <hostRequires>
+        <not>
+          <or>
+            <hostname op="like" value="xci%"/>
+            <hostname op="=" value="c101.xci.lab.eng.rdu2.redhat.com"/>
+            <hostname op="=" value="c106.xci.lab.eng.rdu2.redhat.com"/>
+          </or>
+        </not>
+        <!-- <and>
+          <cpu_count op="&gt;" value="1"/>
+          <hypervisor op="=" value=""/>
+        </and> -->
+        <!-- <system_type value="Machine"/> -->
+      </hostRequires>
+      <partitions/>
+      <task name="/distribution/check-install" role="STANDALONE"/>
+      <task name="Mock build" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#mockbuild"/>
+        <params>
+          <!-- Not needed now, but may be needed later. -->
+          <!-- <param name="PARAM" value="VALUE"/> -->
+        </params>
+      </task>
+      <!-- <task name="/distribution/reservesys" role="STANDALONE">
+        <params>
+          <param name="RESERVE_IF_FAIL" value="False" />
+          <param name="RESERVETIME" value="3600" />
+        </params>
+      </task> -->
+    </recipe>
+
+    <recipe whiteboard="RHEL 8 CDN aarch64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+      <autopick random="false"/>
+      <watchdog/>
+      <packages/>
+      <ks_appends/>
+      <repos/>
+      <distroRequires>
+        <distro_arch op="=" value="aarch64"/>
+        <name op="=" value="RHEL-8.2.0"/>
+        <variant op="=" value="BaseOS"/>
+      </distroRequires>
+      <hostRequires>
+        <and>
+          <or>
+            <hostname op="like" value="ampere-osprey%"/>
+            <hostname op="like" value="hpe-apollo%"/>
+            <hostname op="like" value="qualcomm-amberwing%"/>
+          </or>
+          <!-- <hypervisor op="=" value=""/> -->
+        </and>
+        <!-- <system_type value="Machine"/> -->
+      </hostRequires>
+      <partitions/>
+      <task name="/distribution/check-install" role="STANDALONE"/>
+      <task name="Mock build" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#mockbuild"/>
+        <params>
+          <!-- Not needed now, but may be needed later. -->
+          <!-- <param name="PARAM" value="VALUE"/> -->
+        </params>
+      </task>
+      <!-- <task name="/distribution/reservesys" role="STANDALONE">
+        <params>
+          <param name="RESERVE_IF_FAIL" value="False" />
+          <param name="RESERVETIME" value="3600" />
+        </params>
+      </task> -->
+    </recipe>
+
+    <recipe whiteboard="RHEL 8 CDN ppc64le" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+      <autopick random="false"/>
+      <watchdog/>
+      <packages/>
+      <ks_appends/>
+      <repos/>
+      <distroRequires>
+        <distro_arch op="=" value="ppc64le"/>
+        <name op="=" value="RHEL-8.2.0"/>
+        <variant op="=" value="BaseOS"/>
+      </distroRequires>
+      <hostRequires>
+        <!-- <cpu_count op="&gt;" value="1"/>
+        <system_type value="Machine"/>
+        <system_hypervisor op="!=" value="KVM"/> -->
+      </hostRequires>
+      <partitions/>
+      <task name="/distribution/check-install" role="STANDALONE"/>
+      <task name="Mock build" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#mockbuild"/>
+        <params>
+          <!-- Not needed now, but may be needed later. -->
+          <!-- <param name="PARAM" value="VALUE"/> -->
+        </params>
+      </task>
+      <!-- <task name="/distribution/reservesys" role="STANDALONE">
+        <params>
+          <param name="RESERVE_IF_FAIL" value="False" />
+          <param name="RESERVETIME" value="3600" />
+        </params>
+      </task> -->
+    </recipe>
+
+    <recipe whiteboard="RHEL 8 CDN s390x" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+      <autopick random="false"/>
+      <watchdog/>
+      <packages/>
+      <ks_appends/>
+      <repos/>
+      <distroRequires>
+        <distro_arch op="=" value="s390x"/>
+        <name op="=" value="RHEL-8.2.0"/>
+        <variant op="=" value="BaseOS"/>
+      </distroRequires>
+      <hostRequires>
+        <system_type value="Machine"/>
+        <not>
+          <or>
+            <hostname op="like" value="kernelci%"/>
+          </or>
+        </not>
+      </hostRequires>
+      <partitions/>
+      <task name="/distribution/check-install" role="STANDALONE"/>
+      <task name="Mock build" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#mockbuild"/>
+        <params>
+          <!-- Not needed now, but may be needed later. -->
+          <!-- <param name="PARAM" value="VALUE"/> -->
+        </params>
+      </task>
+      <!-- <task name="/distribution/reservesys" role="STANDALONE">
+        <params>
+          <param name="RESERVE_IF_FAIL" value="False" />
+          <param name="RESERVETIME" value="3600" />
+        </params>
+      </task> -->
+    </recipe>
+
+  </recipeSet>
+</job>
