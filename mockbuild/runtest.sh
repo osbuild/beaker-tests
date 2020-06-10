@@ -22,7 +22,7 @@ rm -f register.sh
 
 # Update the OS and install packages.
 dnf -y upgrade
-dnf -y install ansible createrepo_c chrony dnf-plugins-core git \
+dnf -y install ansible createrepo_c chrony dnf-plugins-core git htop \
     make mock podman policycoreutils-python-utils python3 python3-pip \
     rpm-build vi vim xz
 
