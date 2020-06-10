@@ -27,7 +27,7 @@ dnf -y install ansible createrepo_c chrony dnf-plugins-core git \
     rpm-build vi vim xz
 
 # Clone osbuild-composer.
-git clone --recursive https://github.com/osbuild/osbuild-composer
+git clone --recursive --depth 5 https://github.com/osbuild/osbuild-composer
 
 # Build source RPMs.
 make -C osbuild-composer srpm
@@ -35,8 +35,7 @@ make -C osbuild-composer/osbuild srpm
 
 # Compile RPMs in a mock chroot
 mkdir -p $REPO_DIR
-mock -r $MOCK_CONFIG --no-bootstrap-chroot \
-    --resultdir $REPO_DIR --with=tests \
+mock -r $MOCK_CONFIG --resultdir $REPO_DIR --with=tests \
     osbuild-composer/rpmbuild/SRPMS/*.src.rpm \
     osbuild-composer/osbuild/rpmbuild/SRPMS/*.src.rpm
 

@@ -1,5 +1,5 @@
 <job>
-  <whiteboard>ImageBuilder multi-arch testing in Beaker</whiteboard>
+  <whiteboard>Image Builder multi-arch testing in Beaker</whiteboard>
   <recipeSet priority="Normal">
     <recipe whiteboard="RHEL 8 CDN x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
@@ -38,12 +38,7 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
-      <!-- <task name="/distribution/reservesys" role="STANDALONE">
-        <params>
-          <param name="RESERVE_IF_FAIL" value="False" />
-          <param name="RESERVETIME" value="3600" />
-        </params>
-      </task> -->
+      <reservesys duration="3600" when="onwarn"/>
     </recipe>
 
     <recipe whiteboard="RHEL 8 CDN aarch64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
@@ -80,12 +75,7 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
-      <!-- <task name="/distribution/reservesys" role="STANDALONE">
-        <params>
-          <param name="RESERVE_IF_FAIL" value="False" />
-          <param name="RESERVETIME" value="3600" />
-        </params>
-      </task> -->
+      <reservesys duration="3600" when="onwarn"/>
     </recipe>
 
     <recipe whiteboard="RHEL 8 CDN ppc64le" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
@@ -116,12 +106,7 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
-      <!-- <task name="/distribution/reservesys" role="STANDALONE">
-        <params>
-          <param name="RESERVE_IF_FAIL" value="False" />
-          <param name="RESERVETIME" value="3600" />
-        </params>
-      </task> -->
+      <reservesys duration="3600" when="onwarn"/>
     </recipe>
 
     <recipe whiteboard="RHEL 8 CDN s390x" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
@@ -155,12 +140,7 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
-      <!-- <task name="/distribution/reservesys" role="STANDALONE">
-        <params>
-          <param name="RESERVE_IF_FAIL" value="False" />
-          <param name="RESERVETIME" value="3600" />
-        </params>
-      </task> -->
+      <reservesys duration="3600" when="onwarn"/>
     </recipe>
 
   </recipeSet>
