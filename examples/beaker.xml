@@ -20,11 +20,11 @@
             <hostname op="=" value="c106.xci.lab.eng.rdu2.redhat.com"/>
           </or>
         </not>
-        <!-- <and>
+        <and>
           <cpu_count op="&gt;" value="1"/>
           <hypervisor op="=" value=""/>
-        </and> -->
-        <!-- <system_type value="Machine"/> -->
+        </and>
+        <system_type value="Machine"/>
       </hostRequires>
       <partitions/>
       <task name="/distribution/check-install" role="STANDALONE"/>
@@ -62,9 +62,9 @@
             <hostname op="like" value="hpe-apollo%"/>
             <hostname op="like" value="qualcomm-amberwing%"/>
           </or>
-          <!-- <hypervisor op="=" value=""/> -->
+          <hypervisor op="=" value=""/>
         </and>
-        <!-- <system_type value="Machine"/> -->
+        <system_type value="Machine"/>
       </hostRequires>
       <partitions/>
       <task name="/distribution/check-install" role="STANDALONE"/>
@@ -96,9 +96,9 @@
         <variant op="=" value="BaseOS"/>
       </distroRequires>
       <hostRequires>
-        <!-- <cpu_count op="&gt;" value="1"/>
+        <cpu_count op="&gt;" value="1"/>
         <system_type value="Machine"/>
-        <system_hypervisor op="!=" value="KVM"/> -->
+        <system_hypervisor op="!=" value="KVM"/>
       </hostRequires>
       <partitions/>
       <task name="/distribution/check-install" role="STANDALONE"/>

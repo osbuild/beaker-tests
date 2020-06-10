@@ -3,12 +3,14 @@ set -euxo pipefail
 
 # Set variables.
 source /etc/os-release
-WORKSPACE=$(pwd)
-export WORKSPACE
 
 # Get osbuild-composer again.
 git clone --recursive --depth 5 https://github.com/osbuild/osbuild-composer
 cd osbuild-composer
+
+# Set up WORKSPACE location.
+WORKSPACE=$(pwd)
+export WORKSPACE
 
 # Install required packages.
 dnf -y install jq
