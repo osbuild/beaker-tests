@@ -8,9 +8,17 @@ REPO_DIR=/opt/osbuild/repo
 
 # Ensure EPEL is installed on RHEL.
 if [[ $ID == rhel ]]; then
-    curl --retry 5 -LsO https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+    curl --retry 5 -LsO \
+        https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
     rpm -Uvh epel-release-latest-8.noarch.rpm
 fi
+
+# Register via staging RHN.
+curl --retry 5 -s --output register.sh \
+    https://gitlab.cee.redhat.com/snippets/2308/raw
+chmod +x register.sh
+./register.sh
+rm -f register.sh
 
 # Update the OS and install packages.
 dnf -y upgrade
