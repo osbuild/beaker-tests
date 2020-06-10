@@ -14,7 +14,7 @@ dnf -y install cockpit cockpit-composer composer-cli osbuild osbuild-ostree \
 
 # Start services.
 systemctl enable --now osbuild-rcm.socket
-systemctl enabme --now osbuild-composer.socket
+systemctl enable --now osbuild-composer.socket
 systemctl enable --now cockpit.socket
 
 # Verify that the API is running.

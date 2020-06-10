@@ -38,6 +38,9 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
+      <task name="Integration Tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+      </task>
       <reservesys duration="3600" when="onwarn"/>
     </recipe>
 
@@ -75,6 +78,9 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
+      <task name="Integration Tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+      </task>
       <reservesys duration="3600" when="onwarn"/>
     </recipe>
 
@@ -105,6 +111,9 @@
       </task>
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
+      </task>
+      <task name="Integration Tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
       </task>
       <reservesys duration="3600" when="onwarn"/>
     </recipe>
@@ -139,6 +148,9 @@
       </task>
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
+      </task>
+      <task name="Integration Tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
       </task>
       <reservesys duration="3600" when="onwarn"/>
     </recipe>
