@@ -1,7 +1,7 @@
 [General]
 name=mockbuild
 owner=Major Hayden <major@redhat.com>
-description=Mock build for Image Builder
+description=Install Image Builder
 license=GPLv3
 confidential=no
 destructive=no

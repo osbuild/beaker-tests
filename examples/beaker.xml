@@ -35,6 +35,9 @@
           <!-- <param name="PARAM" value="VALUE"/> -->
         </params>
       </task>
+      <task name="Install Image Builder" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
+      </task>
       <!-- <task name="/distribution/reservesys" role="STANDALONE">
         <params>
           <param name="RESERVE_IF_FAIL" value="False" />
@@ -74,6 +77,9 @@
           <!-- <param name="PARAM" value="VALUE"/> -->
         </params>
       </task>
+      <task name="Install Image Builder" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
+      </task>
       <!-- <task name="/distribution/reservesys" role="STANDALONE">
         <params>
           <param name="RESERVE_IF_FAIL" value="False" />
@@ -106,6 +112,9 @@
           <!-- Not needed now, but may be needed later. -->
           <!-- <param name="PARAM" value="VALUE"/> -->
         </params>
+      </task>
+      <task name="Install Image Builder" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
       <!-- <task name="/distribution/reservesys" role="STANDALONE">
         <params>
@@ -142,6 +151,9 @@
           <!-- Not needed now, but may be needed later. -->
           <!-- <param name="PARAM" value="VALUE"/> -->
         </params>
+      </task>
+      <task name="Install Image Builder" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
       <!-- <task name="/distribution/reservesys" role="STANDALONE">
         <params>
