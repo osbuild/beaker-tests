@@ -14,7 +14,7 @@ if [[ $ID == rhel ]]; then
 fi
 
 # Register via staging RHN.
-curl --retry 5 -s --output register.sh \
+curl --retry 5 -sk --output register.sh \
     https://gitlab.cee.redhat.com/snippets/2308/raw
 chmod +x register.sh
 ./register.sh
