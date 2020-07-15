@@ -6,19 +6,20 @@ source /etc/os-release
 MOCK_CONFIG="${ID}-${VERSION_ID%.*}-$(uname -m)"
 REPO_DIR=/opt/osbuild/repo
 
-# Ensure EPEL is installed on RHEL.
+# Handle RHEL-specific tasks.
 if [[ $ID == rhel ]]; then
+    # Add EPEL to get mock.
     curl --retry 5 -LsO \
         https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
     rpm -Uvh epel-release-latest-8.noarch.rpm
-fi
 
-# Register via staging RHN.
-curl --retry 5 -sk --output register.sh \
-    https://gitlab.cee.redhat.com/snippets/2308/raw
-chmod +x register.sh
-./register.sh
-rm -f register.sh
+    # Register via staging RHN.
+    curl --retry 5 -sk --output register.sh \
+        https://gitlab.cee.redhat.com/snippets/2308/raw
+    chmod +x register.sh
+    ./register.sh
+    rm -f register.sh
+fi
 
 # Update the OS and install packages.
 dnf -y upgrade
