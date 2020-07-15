@@ -19,12 +19,6 @@ if [[ $ID == rhel ]]; then
     chmod +x register.sh
     ./register.sh
     rm -f register.sh
-
-    # Update the mock configs if we are on 8.3 beta.
-    if [[ $VERSION_ID == 8.3 ]]; then
-        sed -i 's#cdn.redhat.com/content/dist#cdn.stage.redhat.com/content/beta#' \
-            /etc/mock/templates/rhel-8.tpl
-    fi
 fi
 
 # Update the OS and install packages.
@@ -32,6 +26,12 @@ dnf -y upgrade
 dnf -y install ansible createrepo_c chrony dnf-plugins-core git htop \
     make mock podman policycoreutils-python-utils python3 python3-pip \
     rpm-build vi vim xz
+
+# Update the mock configs if we are on 8.3 beta.
+if [[ $VERSION_ID == 8.3 ]]; then
+    sed -i 's#cdn.redhat.com/content/dist#cdn.stage.redhat.com/content/beta#' \
+        /etc/mock/templates/rhel-8.tpl
+fi
 
 # Clone osbuild-composer.
 git clone --recursive --depth 5 https://github.com/osbuild/osbuild-composer
