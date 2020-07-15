@@ -19,6 +19,12 @@ if [[ $ID == rhel ]]; then
     chmod +x register.sh
     ./register.sh
     rm -f register.sh
+
+    # Update the mock configs if we are on 8.3 beta.
+    if [[ $VERSION_ID == 8.3 ]]; then
+        sed -i 's#cdn.redhat.com/content/dist#cdn.stage.redhat.com/content/beta#' \
+            /etc/mock/templates/rhel-8.tpl
+    fi
 fi
 
 # Update the OS and install packages.
