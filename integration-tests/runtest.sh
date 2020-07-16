@@ -3,9 +3,11 @@ set -euxo pipefail
 
 # Set variables.
 source /etc/os-release
+TEST_IMAGE_TYPE=${TEST_IMAGE_TYPE:-qcow2}
 
 # Get osbuild-composer again.
-git clone --recursive --depth 5 https://github.com/osbuild/osbuild-composer
+rm -f osbuild-composer
+git clone --depth 5 https://github.com/osbuild/osbuild-composer
 cd osbuild-composer
 
 # Set up WORKSPACE location.
@@ -17,34 +19,21 @@ logdump () {
     for LOGFILE in *.{json,log}; do
         echo "---------------------------------------------------------------"
         echo ">>>>> ${LOGFILE} <<<<<"
-        cat $LOGFILE
+        if [[ $LOGFILE == *json ]]; then
+            jq -M "." $LOGFILE
+        else
+            cat $LOGFILE
+        fi
     done
 }
 
 # Install required packages.
 dnf -y install jq
 
-# Run qcow2 test.
-if ! test/image-tests/qemu.sh qcow2; then
+# Run test.
+if ! test/image-tests/qemu.sh $TEST_IMAGE_TYPE; then
     logdump
-    exit 1
-fi
-
-# Run openstack test.
-if ! test/image-tests/qemu.sh openstack; then
-    logdump
-    exit 1
-fi
-
-# Run vhd test.
-if ! test/image-tests/qemu.sh vhd; then
-    logdump
-    exit 1
-fi
-
-# Run vmdk test.
-if ! test/image-tests/qemu.sh vmdk; then
-    logdump
+    sleep 5
     exit 1
 fi
 
