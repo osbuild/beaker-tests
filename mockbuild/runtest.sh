@@ -19,6 +19,12 @@ if [[ $ID == rhel ]]; then
     chmod +x register.sh
     ./register.sh
     rm -f register.sh
+
+    # Dump the repositories that are available.
+    echo "Enabled repositories:"
+    subscription-manager repos --list-enabled
+    echo "Disabled repositories:"
+    subscription-manager repos --list-disabled
 fi
 
 # Update the OS and install packages.
