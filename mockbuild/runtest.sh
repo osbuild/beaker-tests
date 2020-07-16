@@ -3,6 +3,7 @@ set -euxo pipefail
 
 # Set variables.
 source /etc/os-release
+ARCH=$(uname -m)
 MOCK_CONFIG="${ID}-${VERSION_ID%.*}-$(uname -m)"
 REPO_DIR=/opt/osbuild/repo
 
@@ -19,6 +20,21 @@ if [[ $ID == rhel ]]; then
     chmod +x register.sh
     ./register.sh
     rm -f register.sh
+    subscription-manager repos --list
+
+    # Add the codeready-builder repo.
+    case $ARCH in
+        aarch64|x86_64)
+            CRB_REPO="codeready-builder-beta-for-rhel-8-$(uname -m)-rpms"
+        ;;
+        ppc64le)
+            CRB_REPO="advanced-virt-crb-beta-for-rhel-8-ppc64le-rpms"
+        ;;
+        s390x)
+            CRB_REPO="rhel-8-for-s390x-supplementary-beta-rpms"
+        ;;
+    esac
+    subscription-manager repos --enable=${CRB_REPO}
 fi
 
 # Update the OS and install packages.
