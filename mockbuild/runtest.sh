@@ -44,8 +44,9 @@ dnf -y install createrepo_c dnf-plugins-core git htop make mock python3 \
 
 # Update the mock configs if we are on 8.3 beta.
 if [[ $VERSION_ID == 8.3 ]]; then
-    sed -i 's#cdn.redhat.com/content/dist#cdn.stage.redhat.com/content/beta#' \
-        /etc/mock/templates/rhel-8.tpl
+    sed 's/# repos/q' /etc/mock/templates/rhel-8.tpl
+    cat /etc/yum.repos.d/redhat.repo | tee -a /etc/mock/templates/rhel-8.tpl
+    echo '"""' | tee -a /etc/mock/templates/rhel-8.tpl
 fi
 
 # Clone osbuild-composer.
