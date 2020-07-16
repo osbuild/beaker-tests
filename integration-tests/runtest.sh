@@ -12,17 +12,41 @@ cd osbuild-composer
 WORKSPACE=$(pwd)
 export WORKSPACE
 
+# Dump logs/metadata from a failed test.
+logdump () {
+    WORKSPACE_LOGS=$(find . -regextype egrep -regex ".*\.(json|log)$")
+    for LOGFILE in WORKSPACE_LOGS; do
+        echo "---------------------------------------------------------------"
+        echo ">>>>> ${LOGFILE} <<<<<"
+        cat $LOGFILE
+    done
+}
+
 # Install required packages.
 dnf -y install jq
 
 # Run qcow2 test.
-test/image-tests/qemu.sh qcow2
+if ! test/image-tests/qemu.sh qcow2; then
+    logdump
+    exit 1
+fi
 
 # Run openstack test.
-test/image-tests/qemu.sh openstack
+if ! test/image-tests/qemu.sh openstack; then
+    logdump
+    exit 1
+fi
 
 # Run vhd test.
-test/image-tests/qemu.sh vhd
+if ! test/image-tests/qemu.sh vhd; then
+    logdump
+    exit 1
+fi
 
 # Run vmdk test.
-test/image-tests/qemu.sh vmdk
+if test/image-tests/qemu.sh vmdk; then
+    logdump
+    exit 1
+fi
+
+echo "🤠 If we made it this far, everything passed!"
