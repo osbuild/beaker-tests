@@ -7,7 +7,9 @@ TEST_IMAGE_TYPE=${TEST_IMAGE_TYPE:-qcow2}
 
 # Get osbuild-composer again.
 rm -f osbuild-composer
-git clone --depth 5 https://github.com/osbuild/osbuild-composer
+git clone --single-branch \
+    --branch multi-arch-beaker \
+    https://github.com/major/osbuild-composer
 cd osbuild-composer
 
 # Set up WORKSPACE location.
