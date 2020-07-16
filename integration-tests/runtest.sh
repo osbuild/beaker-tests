@@ -44,7 +44,7 @@ if ! test/image-tests/qemu.sh vhd; then
 fi
 
 # Run vmdk test.
-if test/image-tests/qemu.sh vmdk; then
+if ! test/image-tests/qemu.sh vmdk; then
     logdump
     exit 1
 fi
