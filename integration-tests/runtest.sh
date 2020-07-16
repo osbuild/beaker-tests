@@ -14,8 +14,7 @@ export WORKSPACE
 
 # Dump logs/metadata from a failed test.
 logdump () {
-    WORKSPACE_LOGS=$(find ${WORKSPACE} -maxdepth 1 -regextype egrep -regex ".*\.(json|log)$")
-    for LOGFILE in $WORKSPACE_LOGS; do
+    for LOGFILE in *.{json,log}; do
         echo "---------------------------------------------------------------"
         echo ">>>>> ${LOGFILE} <<<<<"
         cat $LOGFILE
