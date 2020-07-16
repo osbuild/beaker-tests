@@ -10,31 +10,19 @@ REPO_DIR=/opt/osbuild/repo
 # Handle RHEL-specific tasks.
 if [[ $ID == rhel ]]; then
     # Add EPEL to get mock.
-    curl --retry 5 -LsO \
-        https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-    rpm -Uvh epel-release-latest-8.noarch.rpm
+    if ! rpm -qi epel-release > /dev/null 2>&1; then
+        curl --retry 5 -LsO \
+            https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+        rpm -Uvh epel-release-latest-8.noarch.rpm
+    fi
 
-    # Register via staging RHN.
-    curl --retry 5 -sk --output register.sh \
-        https://gitlab.cee.redhat.com/snippets/2308/raw
-    chmod +x register.sh
-    ./register.sh
-    rm -f register.sh
-    subscription-manager repos --list
+    # Register via staging RHN, attach the beta pool, and add the CRB repo.
+    if ! subscription-manager status > /dev/null 2>&1; then
+        curl --retry 5 -sk https://gitlab.cee.redhat.com/snippets/2308/raw | bash
+    fi
 
-    # Add the codeready-builder repo.
-    case $ARCH in
-        aarch64|x86_64)
-            CRB_REPO="codeready-builder-beta-for-rhel-8-$(uname -m)-rpms"
-        ;;
-        ppc64le)
-            CRB_REPO="advanced-virt-crb-beta-for-rhel-8-ppc64le-rpms"
-        ;;
-        s390x)
-            CRB_REPO="rhel-8-for-s390x-supplementary-beta-rpms"
-        ;;
-    esac
-    subscription-manager repos --enable=${CRB_REPO}
+    # List enabled repositories.
+    subscription-manager repos --list-enabled
 fi
 
 # Update the OS and install packages.
@@ -50,6 +38,7 @@ if [[ $VERSION_ID == 8.3 ]]; then
 fi
 
 # Clone osbuild-composer.
+rm -rf osbuild-composer
 git clone --recursive --depth 5 https://github.com/osbuild/osbuild-composer
 
 # Build source RPMs.
@@ -58,7 +47,7 @@ make -C osbuild-composer/osbuild srpm
 
 # Compile RPMs in a mock chroot
 mkdir -p $REPO_DIR
-mock -r $MOCK_CONFIG --resultdir $REPO_DIR --with=tests \
+mock -v -r $MOCK_CONFIG --resultdir $REPO_DIR --with=tests \
     osbuild-composer/rpmbuild/SRPMS/*.src.rpm \
     osbuild-composer/osbuild/rpmbuild/SRPMS/*.src.rpm
 
