@@ -1,80 +1,6 @@
 <job retention_tag="scratch">
   <whiteboard>Image Builder multi-arch testing DATESTRING</whiteboard>
   <recipeSet priority="Normal">
-    <!-- <recipe whiteboard="Fedora 31 x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
-      <autopick random="false"/>
-      <watchdog panic="None"/>
-      <packages/>
-      <ks_appends/>
-      <repos/>
-      <distroRequires>
-        <distro_arch op="=" value="x86_64"/>
-        <name op="=" value="Fedora-31"/>
-        <variant op="=" value="Server"/>
-      </distroRequires>
-      <hostRequires>
-        <not>
-          <or>
-            <hostname op="like" value="xci%"/>
-            <hostname op="=" value="c101.xci.lab.eng.rdu2.redhat.com"/>
-            <hostname op="=" value="c106.xci.lab.eng.rdu2.redhat.com"/>
-          </or>
-        </not>
-        <and>
-          <cpu_count op="&gt;" value="1"/>
-          <hypervisor op="=" value=""/>
-        </and>
-        <system_type value="Machine"/>
-      </hostRequires>
-      <partitions/>
-      <task name="/distribution/check-install" role="STANDALONE"/>
-      <task name="Mock build" role="STANDALONE">
-        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#mockbuild"/>
-      </task>
-      <task name="Install Image Builder" role="STANDALONE">
-        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
-      </task>
-      <task name="Integration Tests" role="STANDALONE">
-        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
-      </task>
-    </recipe>
-    <recipe whiteboard="Fedora 32 x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
-      <autopick random="false"/>
-      <watchdog panic="None"/>
-      <packages/>
-      <ks_appends/>
-      <repos/>
-      <distroRequires>
-        <distro_arch op="=" value="x86_64"/>
-        <name op="=" value="Fedora-32"/>
-        <variant op="=" value="Server"/>
-      </distroRequires>
-      <hostRequires>
-        <not>
-          <or>
-            <hostname op="like" value="xci%"/>
-            <hostname op="=" value="c101.xci.lab.eng.rdu2.redhat.com"/>
-            <hostname op="=" value="c106.xci.lab.eng.rdu2.redhat.com"/>
-          </or>
-        </not>
-        <and>
-          <cpu_count op="&gt;" value="1"/>
-          <hypervisor op="=" value=""/>
-        </and>
-        <system_type value="Machine"/>
-      </hostRequires>
-      <partitions/>
-      <task name="/distribution/check-install" role="STANDALONE"/>
-      <task name="Mock build" role="STANDALONE">
-        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#mockbuild"/>
-      </task>
-      <task name="Install Image Builder" role="STANDALONE">
-        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
-      </task>
-      <task name="Integration Tests" role="STANDALONE">
-        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
-      </task>
-    </recipe> -->
     <recipe whiteboard="RHEL 8.3 x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat' no_autopart" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
@@ -241,11 +167,27 @@ part / --size=20480 --grow
       <packages/>
       <ks_appends>
         <ks_append><![CDATA[
-part raid.01 --size=2048 --grow --ondisk=dasda
-part raid.02 --size=2048 --grow --ondisk=dasdb
-part raid.03 --size=2048 --grow --ondisk=dasdc
-part raid.04 --size=2048 --grow --ondisk=dasdd
-raid / --level=0 --device=raid-root --label=raid-root raid.01 raid.02 raid.03 raid.04
+%pre
+#!/bin/bash
+set -x
+
+# s390x nodes always have at least two disks.
+touch /tmp/part-include
+echo "part raid.01 --size=2048 --grow --ondisk=dasda" >> /tmp/part-include
+echo "part raid.02 --size=2048 --grow --ondisk=dasdb" >> /tmp/part-include
+
+# Some s390x nodes have four
+if [[ -e /dev/dasdc ]]; then
+    echo "part raid.03 --size=2048 --grow --ondisk=dasdc" >> /tmp/part-include
+    echo "part raid.04 --size=2048 --grow --ondisk=dasdd" >> /tmp/part-include
+    echo "raid / --level=0 --device=raid-root --label=raid-root raid.01 raid.02 raid.03 raid.04" >> /tmp/part-include
+else
+    echo "raid / --level=0 --device=raid-root --label=raid-root raid.01 raid.02" >> /tmp/part-include
+fi
+
+%end
+
+%include /tmp/part-include
         ]]></ks_append>
       </ks_appends>
       <repos/>
