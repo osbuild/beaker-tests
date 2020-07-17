@@ -1,7 +1,7 @@
 <job retention_tag="scratch">
-  <whiteboard>Image Builder multi-arch testing in Beaker</whiteboard>
+  <whiteboard>Image Builder multi-arch testing DATESTRING</whiteboard>
   <recipeSet priority="Normal">
-    <recipe whiteboard="Fedora 31 x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+    <!-- <recipe whiteboard="Fedora 31 x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
       <packages/>
@@ -74,16 +74,23 @@
       <task name="Integration Tests" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
       </task>
-    </recipe>
-    <recipe whiteboard="RHEL 8.3 x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+    </recipe> -->
+    <recipe whiteboard="RHEL 8.3 x86_64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat' no_autopart" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
       <packages/>
-      <ks_appends/>
+      <ks_appends>
+        <ks_append><![CDATA[
+part /boot/efi --fstype=efi --size=200
+part /boot --recommended
+part swap --size=2048
+part / --size=20480 --grow
+        ]]></ks_append>
+      </ks_appends>
       <repos/>
       <distroRequires>
         <distro_arch op="=" value="x86_64"/>
-        <name op="=" value="RHEL-8.3.0-20200715.n.0"/>
+        <name op="=" value="RHEL-8.3.0-20200717.n.0"/>
         <variant op="=" value="BaseOS"/>
       </distroRequires>
       <hostRequires>
@@ -108,19 +115,39 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
-      <task name="Integration Tests" role="STANDALONE">
+      <task name="Integration Tests: qcow2" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="qcow2"/>
+      </task>
+      <task name="Integration Tests: openstack" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="openstack"/>
+      </task>
+      <task name="Integration Tests: vhd" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="vhd"/>
+      </task>
+      <task name="Integration Tests: vmdk" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="vmdk"/>
       </task>
     </recipe>
-    <recipe whiteboard="RHEL 8.3 aarch64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+    <recipe whiteboard="RHEL 8.3 aarch64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat' no_autopart" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
       <packages/>
-      <ks_appends/>
+      <ks_appends>
+        <ks_append><![CDATA[
+part /boot/efi --fstype=efi --size=200
+part /boot --recommended
+part swap --size=2048
+part / --size=20480 --grow
+        ]]></ks_append>
+      </ks_appends>
       <repos/>
       <distroRequires>
         <distro_arch op="=" value="aarch64"/>
-        <name op="=" value="RHEL-8.3.0-20200715.n.0"/>
+        <name op="=" value="RHEL-8.3.0-20200717.n.0"/>
         <variant op="=" value="BaseOS"/>
       </distroRequires>
       <hostRequires>
@@ -142,19 +169,39 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
-      <task name="Integration Tests" role="STANDALONE">
+      <task name="Integration Tests: qcow2" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="qcow2"/>
+      </task>
+      <task name="Integration Tests: openstack" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="openstack"/>
+      </task>
+      <task name="Integration Tests: vhd" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="vhd"/>
+      </task>
+      <task name="Integration Tests: vmdk" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="vmdk"/>
       </task>
     </recipe>
-    <recipe whiteboard="RHEL 8.3 ppc64le" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+    <recipe whiteboard="RHEL 8.3 ppc64le" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat' no_autopart" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
       <packages/>
-      <ks_appends/>
+      <ks_appends>
+        <ks_append><![CDATA[
+part /boot/efi --fstype=efi --size=200
+part /boot --recommended
+part swap --size=2048
+part / --size=20480 --grow
+        ]]></ks_append>
+      </ks_appends>
       <repos/>
       <distroRequires>
         <distro_arch op="=" value="ppc64le"/>
-        <name op="=" value="RHEL-8.3.0-20200715.n.0"/>
+        <name op="=" value="RHEL-8.3.0-20200717.n.0"/>
         <variant op="=" value="BaseOS"/>
       </distroRequires>
       <hostRequires>
@@ -170,19 +217,41 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
-      <task name="Integration Tests" role="STANDALONE">
+      <task name="Integration Tests: qcow2" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="qcow2"/>
       </task>
+      <task name="Integration Tests: openstack" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="openstack"/>
+      </task>
+      <task name="Integration Tests: vhd" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="vhd"/>
+      </task>
+      <task name="Integration Tests: vmdk" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="vmdk"/>
+      </task>
+      <!-- <reservesys duration="3600" when="onwarn"/> -->
     </recipe>
-    <recipe whiteboard="RHEL 8.3 s390x" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat'" kernel_options="" kernel_options_post="">
+    <recipe whiteboard="RHEL 8.3 s390x" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat' no_autopart" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
       <packages/>
-      <ks_appends/>
+      <ks_appends>
+        <ks_append><![CDATA[
+part raid.01 --size=2048 --grow --ondisk=dasda
+part raid.02 --size=2048 --grow --ondisk=dasdb
+part raid.03 --size=2048 --grow --ondisk=dasdc
+part raid.04 --size=2048 --grow --ondisk=dasdd
+raid / --level=0 --device=raid-root --label=raid-root raid.01 raid.02 raid.03 raid.04
+        ]]></ks_append>
+      </ks_appends>
       <repos/>
       <distroRequires>
         <distro_arch op="=" value="s390x"/>
-        <name op="=" value="RHEL-8.3.0-20200715.n.0"/>
+        <name op="=" value="RHEL-8.3.0-20200717.n.0"/>
         <variant op="=" value="BaseOS"/>
       </distroRequires>
       <hostRequires>
@@ -201,9 +270,23 @@
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
-      <task name="Integration Tests" role="STANDALONE">
+      <task name="Integration Tests: qcow2" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="qcow2"/>
       </task>
+      <task name="Integration Tests: openstack" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="openstack"/>
+      </task>
+      <task name="Integration Tests: vhd" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="vhd"/>
+      </task>
+      <task name="Integration Tests: vmdk" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
+        <param name="TEST_IMAGE_TYPE" value="vmdk"/>
+      </task>
+      <!-- <reservesys duration="3600" when="onwarn"/> -->
     </recipe>
   </recipeSet>
 </job>
