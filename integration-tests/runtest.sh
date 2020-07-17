@@ -33,7 +33,7 @@ logdump () {
 dnf -y install jq
 
 # Run test.
-if ! test/image-tests/qemu.sh $TEST_IMAGE_TYPE; then
+if ! test/image-tests/qemu.sh $TEST_IMAGE_TYPE | ts -s; then
     logdump
     sleep 5
     exit 1
