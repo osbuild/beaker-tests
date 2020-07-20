@@ -47,7 +47,8 @@ make -C osbuild-composer/osbuild srpm
 
 # Compile RPMs in a mock chroot
 mkdir -p $REPO_DIR
-mock -v -r $MOCK_CONFIG --resultdir $REPO_DIR --with=tests \
+mock -v -r $MOCK_CONFIG --no-bootstrap-chroot \
+    --resultdir $REPO_DIR --with=tests \
     osbuild-composer/rpmbuild/SRPMS/*.src.rpm \
     osbuild-composer/osbuild/rpmbuild/SRPMS/*.src.rpm
 
