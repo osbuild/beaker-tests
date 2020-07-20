@@ -27,7 +27,7 @@ fi
 
 # Update the OS and install packages.
 dnf -y upgrade
-dnf -y install createrepo_c dnf-plugins-core git htop make mock moreutils \
+dnf -y install createrepo_c dnf-plugins-core git htop make mock \
     python3 python3-pip rpm-build xz
 
 # Update the mock configs if we are on 8.3 beta.

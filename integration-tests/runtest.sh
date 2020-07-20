@@ -39,6 +39,6 @@ dnf -y install jq
 trap logdump ERR
 
 # Run test.
-test/image-tests/qemu.sh $TEST_IMAGE_TYPE 2>&1 | ts -s
+test/image-tests/qemu.sh $TEST_IMAGE_TYPE
 
 echo "🤠 If we made it this far, everything passed!"
