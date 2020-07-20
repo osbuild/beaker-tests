@@ -181,25 +181,34 @@ touch /tmp/part-include
 
 # Boot must be on a regular partition.
 echo "part /boot --fstype ext2 --size 200 --ondisk=dasda" >> /tmp/part-include
+
+# Make a dummy partition on the second disk so our RAID partitions match.
 echo "part /boot/dummy1 --fstype ext2 --size 200 --ondisk=dasdb" >> /tmp/part-include
 
 # s390x nodes always have at least two disks.
 echo "part raid.01 --size=2048 --grow --ondisk=dasda" >> /tmp/part-include
 echo "part raid.02 --size=2048 --grow --ondisk=dasdb" >> /tmp/part-include
 
-# Some s390x nodes have four
+# Some s390x nodes have four.
 if [[ -e /dev/dasdc ]]; then
+    # Make dummy partitions on the disks that match the first two so our
+    # RAID paritions match.
     echo "part /boot/dummy2 --fstype ext2 --size 200 --ondisk=dasdc" >> /tmp/part-include
     echo "part /boot/dummy3 --fstype ext2 --size 200 --ondisk=dasdd" >> /tmp/part-include
+
+    # Set up for a 4 disk RAID.
     echo "part raid.03 --size=2048 --grow --ondisk=dasdc" >> /tmp/part-include
     echo "part raid.04 --size=2048 --grow --ondisk=dasdd" >> /tmp/part-include
     echo "raid / --level=0 --device=raid-root --label=raid-root raid.01 raid.02 raid.03 raid.04" >> /tmp/part-include
 else
+    # Set up for a 2 disk RAID.
     echo "raid / --level=0 --device=raid-root --label=raid-root raid.01 raid.02" >> /tmp/part-include
 fi
 
 %end
 
+# Make sure the kickstart picks up this horribly hacked-up partitioning
+# structure.
 %include /tmp/part-include
         ]]></ks_append>
       </ks_appends>

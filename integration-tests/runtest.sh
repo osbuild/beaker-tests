@@ -27,16 +27,18 @@ logdump () {
             cat $LOGFILE
         fi
     done
+
+    sleep 5
+    exit 1
 }
 
 # Install required packages.
 dnf -y install jq
 
+# Catch errors and dump logs.
+trap logdump ERR
+
 # Run test.
-if ! test/image-tests/qemu.sh $TEST_IMAGE_TYPE | ts -s; then
-    logdump
-    sleep 5
-    exit 1
-fi
+test/image-tests/qemu.sh $TEST_IMAGE_TYPE 2>&1 | ts -s
 
 echo "🤠 If we made it this far, everything passed!"
