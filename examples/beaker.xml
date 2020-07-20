@@ -58,6 +58,8 @@ part / --size=20480 --grow
         <param name="TEST_IMAGE_TYPE" value="vmdk"/>
       </task>
     </recipe>
+  </recipeSet>
+  <recipeSet priority="Normal">
     <recipe whiteboard="RHEL 8.3 aarch64" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat' no_autopart" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
@@ -112,6 +114,8 @@ part / --size=20480 --grow
         <param name="TEST_IMAGE_TYPE" value="vmdk"/>
       </task>
     </recipe>
+  </recipeSet>
+  <recipeSet priority="Normal">
     <recipe whiteboard="RHEL 8.3 ppc64le" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat' no_autopart" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
@@ -161,6 +165,8 @@ part / --size=20480 --grow
       </task>
       <!-- <reservesys duration="3600" when="onwarn"/> -->
     </recipe>
+  </recipeSet>
+  <recipeSet priority="Normal">
     <recipe whiteboard="RHEL 8.3 s390x" role="None" ks_meta="harness='restraint-rhts beakerlib-redhat' no_autopart" kernel_options="" kernel_options_post="">
       <autopick random="false"/>
       <watchdog panic="None"/>
