@@ -41,6 +41,12 @@ part / --size=20480 --grow
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
+      <task name="Base tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#base-tests"/>
+      </task>
+      <task name="Image tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#image-tests"/>
+      </task>
       <task name="Integration Tests: qcow2" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
         <param name="TEST_IMAGE_TYPE" value="qcow2"/>
@@ -97,6 +103,12 @@ part / --size=20480 --grow
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
       </task>
+      <task name="Base tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#base-tests"/>
+      </task>
+      <task name="Image tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#image-tests"/>
+      </task>
       <task name="Integration Tests: qcow2" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
         <param name="TEST_IMAGE_TYPE" value="qcow2"/>
@@ -113,6 +125,7 @@ part / --size=20480 --grow
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
         <param name="TEST_IMAGE_TYPE" value="vmdk"/>
       </task>
+      <reservesys duration="3600" when="onwarn"/>
     </recipe>
   </recipeSet>
   <recipeSet priority="Normal">
@@ -120,14 +133,6 @@ part / --size=20480 --grow
       <autopick random="false"/>
       <watchdog panic="None"/>
       <packages/>
-      <ks_appends>
-        <ks_append><![CDATA[
-part /boot/efi --fstype=efi --size=200
-part /boot --recommended
-part swap --size=2048
-part / --size=20480 --grow
-        ]]></ks_append>
-      </ks_appends>
       <repos/>
       <distroRequires>
         <distro_arch op="=" value="ppc64le"/>
@@ -148,6 +153,12 @@ part / --size=20480 --grow
       </task>
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
+      </task>
+      <task name="Base tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#base-tests"/>
+      </task>
+      <task name="Image tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#image-tests"/>
       </task>
       <task name="Integration Tests: qcow2" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>
@@ -245,6 +256,12 @@ systemctl mask tmp.mount
       </task>
       <task name="Install Image Builder" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#install"/>
+      </task>
+      <task name="Base tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#base-tests"/>
+      </task>
+      <task name="Image tests" role="STANDALONE">
+        <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#image-tests"/>
       </task>
       <task name="Integration Tests: qcow2" role="STANDALONE">
         <fetch url="https://github.com/osbuild/beaker-tests/archive/master.zip#integration-tests"/>

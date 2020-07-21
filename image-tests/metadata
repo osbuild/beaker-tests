@@ -1,0 +1,12 @@
+[General]
+name=mockbuild
+owner=Major Hayden <major@redhat.com>
+description=Image Builder Image Tests
+license=GPLv3
+confidential=no
+destructive=no
+
+[restraint]
+entry_point=bash ./runtest.sh
+# NOTE(mhayden): We install these in the runtests.sh script.
+#dependencies=
