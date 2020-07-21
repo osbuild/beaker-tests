@@ -135,9 +135,11 @@ part / --size=20480 --grow
         <variant op="=" value="BaseOS"/>
       </distroRequires>
       <hostRequires>
-        <cpu_count op="&gt;" value="1"/>
-        <system_type value="Machine"/>
-        <system_hypervisor op="!=" value="KVM"/>
+        <and>
+          <arch op="=" tag="arch" value="ppc64le"/>
+          <key_value key="HVM" op="=" value="1"/>
+          <key_value key="CPUMODEL" op="like" value="%POWER9%"/>
+        </and>
       </hostRequires>
       <partitions/>
       <task name="/distribution/check-install" role="STANDALONE"/>
