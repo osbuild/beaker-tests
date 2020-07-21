@@ -212,6 +212,16 @@ fi
 # Make sure the kickstart picks up this horribly hacked-up partitioning
 # structure.
 %include /tmp/part-include
+
+%post --log=/dev/console
+#!/bin/bash
+set -x
+
+# Ensure the tmp.mount service does not run since s390x nodes are memory
+# constrained. Having /run on tmpfs will cause our tests to fail.
+systemctl disable tmp.mount
+systemctl mask tmp.mount
+%end
         ]]></ks_append>
       </ks_appends>
       <repos/>
