@@ -39,7 +39,8 @@ fi
 
 # Clone osbuild-composer.
 rm -rf osbuild-composer
-git clone --recursive --depth 5 https://github.com/osbuild/osbuild-composer
+git clone --recursive --single-branch --branch multi-arch-beaker \
+    --depth 5 https://github.com/major/osbuild-composer
 
 # Build source RPMs.
 make -C osbuild-composer srpm
