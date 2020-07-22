@@ -16,24 +16,18 @@ cd osbuild-composer
 WORKSPACE=$(pwd)
 export WORKSPACE
 
-# Dump logs/metadata from a failed test.
-logdump () {
-    for LOGFILE in *.{json,log}; do
-        echo "---------------------------------------------------------------"
-        echo ">>>>> ${LOGFILE} <<<<<"
-        if [[ $LOGFILE == *json ]]; then
-            jq -M "." $LOGFILE
-        else
-            cat $LOGFILE
-        fi
-    done
+# Install required packages.
+dnf -y install jq
 
+# Get the current journal cursor.
+JOURNALD_CURSOR=$(journalctl -n 1 -o json | jq -r ".__CURSOR")
+
+# Dump logs from a failed test.
+logdump () {
+    journalctl --cursor="${JOURNALD_CURSOR}"
     sleep 5
     exit 1
 }
-
-# Install required packages.
-dnf -y install jq
 
 # Catch errors and dump logs.
 trap logdump ERR
